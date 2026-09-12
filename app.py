@@ -23,8 +23,7 @@ st.set_page_config(
 # =========================================================
 
 def format_idr(val):
-    """Mengubah format 1,463,084 menjadi 1.463.084 (Titik untuk ribuan)"""
-    return f"{val:,.0f}".replace(",", ".")
+    return f"{val:,.1f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 
 # =========================================================
