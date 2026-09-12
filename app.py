@@ -6,7 +6,6 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-
 # =========================================================
 # KONFIGURASI HALAMAN
 # =========================================================
@@ -16,7 +15,6 @@ st.set_page_config(
     page_icon="🌷",
     layout="wide"
 )
-
 
 # =========================================================
 # FUNGSI FORMAT ANGKA (UNIT / PENJUALAN)
@@ -61,7 +59,7 @@ st.markdown(
     .main-title { font-size: 32px; font-weight: 800; color: #3f3a56; margin-bottom: 4px; }
     .main-subtitle { font-size: 14px; color: #817b91; margin-bottom: 25px; }
 
-    /* ===== HERO BOX (UTUH, BERSIH, LEBIH RAPI) ===== */
+    /* ===== HERO BOX ===== */
     .hero-box {
         background: linear-gradient(135deg, #eee9ff 0%, #f8f3ff 50%, #eaf6ff 100%);
         border: 1.5px solid #cbbdf0;
@@ -244,7 +242,7 @@ st.markdown(
         box-shadow: 0 6px 18px rgba(117, 100, 207, 0.05);
     }
 
-    /* STYLING DATAFRAME / TABEL STREAMLIT */
+    /* STYLING DATAFRAME */
     div[data-testid="stDataFrame"] {
         border: 1.5px solid #d4cbf0;
         border-radius: 14px;
@@ -274,7 +272,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 # =========================================================
 # FEATURE MODEL
 # =========================================================
@@ -284,7 +281,6 @@ FEATURE_NAMES = [
     "lag_1", "lag_7", "lag_14", "lag_28",
     "rolling_mean_7", "rolling_mean_14", "rolling_mean_28"
 ]
-
 
 # =========================================================
 # LOAD MODEL
@@ -552,7 +548,7 @@ def main():
             <div class="kpi kpi-blue">
                 <div class="kpi-icon">📈</div>
                 <div class="kpi-label">PREDIKSI PENJUALAN</div>
-                <div class="kpi-value">{format_idr(prediction)}</div>
+                <div class="kpi-value">{format_unit(prediction)}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -564,7 +560,7 @@ def main():
             <div class="kpi kpi-green">
                 <div class="kpi-icon">📊</div>
                 <div class="kpi-label">RATA-RATA DATA</div>
-                <div class="kpi-value">{format_idr(average_sales)}</div>
+                <div class="kpi-value">{format_unit(average_sales)}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -596,8 +592,8 @@ def main():
             <div class="prediction-box">
                 <div class="prediction-label">Estimasi Penjualan</div>
                 <div class="prediction-date">{format_date_id(target_date)}</div>
-                <div class="prediction-value">{format_idr(prediction)}</div>
-                <div class="prediction-unit">estimasi nilai penjualan</div>
+                <div class="prediction-value">{format_unit(prediction)}</div>
+                <div class="prediction-unit">estimasi volume produk terjual</div>
                 <div class="prediction-info">
                     Model melakukan <b>dynamic forecasting</b>.
                     Prediksi hari sebelumnya digunakan
@@ -618,7 +614,7 @@ def main():
                 f"""
                 <div class="insight">
                     <div class="insight-title">Nilai Tertinggi</div>
-                    <div class="insight-value">{format_idr(highest_value)}</div>
+                    <div class="insight-value">{format_unit(highest_value)}</div>
                     <div class="insight-text">{highest_date.strftime("%d %b %Y")}</div>
                 </div>
                 """,
@@ -630,7 +626,7 @@ def main():
                 f"""
                 <div class="insight">
                     <div class="insight-title">Nilai Terendah</div>
-                    <div class="insight-value">{format_idr(lowest_value)}</div>
+                    <div class="insight-value">{format_unit(lowest_value)}</div>
                     <div class="insight-text">{lowest_date.strftime("%d %b %Y")}</div>
                 </div>
                 """,
@@ -725,7 +721,7 @@ def main():
         plot_bgcolor="white",
         hovermode="x unified",
         xaxis=dict(title="Tanggal", showgrid=False),
-        yaxis=dict(title="Penjualan", gridcolor="#f0edf5"),
+        yaxis=dict(title="Penjualan (Unit)", gridcolor="#f0edf5"),
         legend=dict(orientation="h", y=1.08, x=0)
     )
 
@@ -797,7 +793,7 @@ def main():
         detail = detail[(detail["Date"] > last_date) & (detail["Date"] <= target_date)]
 
         detail["Tanggal"] = detail["Date"].dt.strftime("%d-%m-%Y")
-        detail["Penjualan (Forecast)"] = detail["Value"].apply(format_idr)
+        detail["Penjualan (Forecast)"] = detail["Value"].apply(format_unit)
 
         detail = detail[["Tanggal", "Penjualan (Forecast)"]]
 
