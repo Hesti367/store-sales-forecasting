@@ -21,8 +21,8 @@ st.set_page_config(
 # =========================================================
 
 def format_unit(val):
-    """Mengubah format angka desimal menjadi angka bulat (unit) 
-    dengan titik sebagai pemisah ribuan standar Indonesia.
+    """Membulatkan hasil prediksi desimal dari model menjadi 
+    angka bulat (unit) dengan pemisah ribuan standar Indonesia.
     Contoh: 698.308 -> '698 unit' | 1463.8 -> '1.464 unit'
     """
     return f"{round(val):,}".replace(",", ".") + " unit"
