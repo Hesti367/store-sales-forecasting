@@ -17,15 +17,16 @@ st.set_page_config(
 )
 
 # =========================================================
-# FUNGSI FORMAT ANGKA (UNIT / PENJUALAN)
+# FUNGSI FORMAT ANGKA (DIJAMIN BULAT TANPA KOMA)
 # =========================================================
 
 def format_unit(val):
     """Membulatkan hasil prediksi desimal dari model menjadi 
-    angka bulat (unit) dengan pemisah ribuan standar Indonesia.
+    angka bulat murni (unit) dengan pemisah ribuan standar Indonesia.
     Contoh: 698.308 -> '698 unit' | 1463.8 -> '1.464 unit'
     """
-    return f"{round(val):,}".replace(",", ".") + " unit"
+    # Menggunakan int(round(val)) untuk memastikan jadi integer murni
+    return f"{int(round(float(val))):,}".replace(",", ".") + " unit"
 
 
 # =========================================================
@@ -793,6 +794,7 @@ def main():
         detail = detail[(detail["Date"] > last_date) & (detail["Date"] <= target_date)]
 
         detail["Tanggal"] = detail["Date"].dt.strftime("%d-%m-%Y")
+        # Menggunakan format_unit agar kolom tabel juga bulat tanpa koma
         detail["Penjualan (Forecast)"] = detail["Value"].apply(format_unit)
 
         detail = detail[["Tanggal", "Penjualan (Forecast)"]]
