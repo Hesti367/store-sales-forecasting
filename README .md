@@ -210,8 +210,8 @@ Project ini menggunakan beberapa teknologi berikut:
 ### 10.1 Clone Repository
 
 ```bash
-git clone https://github.com/USERNAME/REPOSITORY.git
-cd REPOSITORY
+git clone https://github.com/Hesti367/store-sales-forecasting.git](https://github.com/Hesti367/store-sales-forecasting.git
+cd store-sales-forecasting
 ```
 
 ### 10.2 Membuat Virtual Environment
