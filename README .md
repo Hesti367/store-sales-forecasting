@@ -6,7 +6,7 @@ Aplikasi dibuat dalam bentuk web sehingga pengguna cukup memilih tanggal target,
 
 ## Live Demo
 
-https://NAMA-APP-KAMU.streamlit.app
+https://store-sales-forecasting-hesti.streamlit.app/
 
 ## 1. Latar Belakang
 
