@@ -21,12 +21,10 @@ st.set_page_config(
 # =========================================================
 
 def format_unit(val):
-    """Membulatkan angka desimal (hasil prediksi/rata-rata) menjadi 
-    angka bulat (unit) dengan titik sebagai pemisah ribuan standar Indonesia.
-    Catatan: Dataset asli tidak diubah, pembulatan hanya untuk tampilan UI.
-    Contoh: 698.78 -> '699 unit' | 1463.8 -> '1.464 unit'
-    """
-    return f"{round(val):,}".replace(",", ".") + " unit"
+    if pd.isna(val):
+        return "-"
+    # Membulatkan angka desimal lalu menerapkannya ke format ribuan standar Indonesia (. sebagai pemisah ribuan)
+    return f"{round(float(val)):,}".replace(",", ".") + " unit"
 
 
 # =========================================================
