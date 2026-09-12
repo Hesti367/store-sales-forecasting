@@ -159,18 +159,26 @@ Hasil Random Forest Tuned menunjukkan bahwa performa pada data train cukup tingg
 
 ## 7. Forecasting Dinamis
 
-Sistem menggunakan pendekatan recursive/dynamic forecasting.
+Sistem menggunakan pendekatan recursive/dynamic forecasting, yaitu model melakukan prediksi secara bertahap dari hari ke hari.
 
-Model tidak langsung menghasilkan seluruh prediksi sekaligus. Proses dilakukan secara bertahap:
+Pengguna memilih tanggal target yang ingin diprediksi. Sistem kemudian menghitung jarak antara tanggal terakhir pada data historis dengan tanggal target tersebut.
 
-1. Model memprediksi penjualan untuk satu hari.
-2. Hasil prediksi tersebut digunakan sebagai bagian dari data historis.
-3. Fitur lag dan rolling mean diperbarui.
-4. Model memprediksi hari berikutnya.
-5. Proses diulangi sampai mencapai tanggal target.
+Forecasting dibatasi maksimal 90 hari dari tanggal terakhir pada data historis. Batas ini digunakan agar periode prediksi tetap berada pada rentang forecasting yang ditentukan dalam project.
 
-Dengan pendekatan tersebut, pengguna dapat memilih tanggal target dan sistem akan menghitung jumlah hari yang perlu diprediksi secara otomatis.
+Proses forecasting dilakukan sebagai berikut:
 
+Pengguna memilih tanggal target.
+Sistem menghitung jumlah hari yang perlu diprediksi.
+Model memprediksi penjualan untuk satu hari.
+Hasil prediksi digunakan sebagai bagian dari data historis untuk prediksi berikutnya.
+Fitur lag dan rolling mean diperbarui setiap langkah.
+Proses diulangi sampai mencapai tanggal target.
+
+Dengan demikian, model tidak langsung memprediksi seluruh periode sekaligus, tetapi memprediksi hari demi hari hingga mencapai tanggal target.
+
+Contohnya, jika tanggal terakhir pada data adalah 31 Desember dan pengguna memilih tanggal target 30 hari setelahnya, maka sistem akan melakukan forecasting selama 30 hari secara bertahap.
+
+Tanggal target yang dipilih tidak boleh lebih dari 90 hari dari tanggal terakhir data yang tersedia.
 ## 8. Fitur Aplikasi
 
 Aplikasi web menyediakan fitur utama:
