@@ -19,11 +19,15 @@ st.set_page_config(
 
 
 # =========================================================
-# FUNGSI FORMAT ANGKA (RUPIAH / INDONESIA FORMAT)
+# FUNGSI FORMAT ANGKA (UNIT / PENJUALAN)
 # =========================================================
 
-def format_idr(val):
-    return f"{val:,.1f}".replace(",", "X").replace(".", ",").replace("X", ".")
+def format_unit(val):
+    """Mengubah format angka desimal menjadi angka bulat (unit) 
+    dengan titik sebagai pemisah ribuan standar Indonesia.
+    Contoh: 698.308 -> '698 unit' | 1463.8 -> '1.464 unit'
+    """
+    return f"{round(val):,}".replace(",", ".") + " unit"
 
 
 # =========================================================
